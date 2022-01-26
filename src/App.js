@@ -87,11 +87,15 @@ const App = () => {
         console.log('Mining...', waveTxn.hash);
 
         await waveTxn.wait();
-        setMessage({ color: 'success', message: `Transaction mined...` });
+
         console.log('Mined -- ', waveTxn.hash);
 
         count = await wavePortalContract.getTotalWaves();
         console.log('Retrieved total wave count...', count.toNumber());
+        setMessage({
+          color: 'success',
+          message: `Transaction mined... ${count.toNumber()} waves on chain`,
+        });
       } else {
         console.log("Ethereum object doesn't exist!");
       }
