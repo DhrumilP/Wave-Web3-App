@@ -60,9 +60,17 @@
 .connect-wallet-button {
   background: -webkit-linear-gradient(left, #60c657, #35aee2);
   background-size: 200% 200%;
-  margin-right: 5em;
+  /* margin-right: 5em; */
   width: 215px;
   animation: gradient-animation 4s ease infinite;
+}
+
+.alert {
+  position: absolute;
+  top: 30px;
+  margin: auto;
+  width: 20%;
+  justify-content: center;
 }
 
 .wave-button {
