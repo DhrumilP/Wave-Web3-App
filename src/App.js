@@ -102,7 +102,7 @@ const App = () => {
     }
   };
 
-  const wave = async message => {
+  const wave = async () => {
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -119,7 +119,7 @@ const App = () => {
         /*
          * Execute the actual wave from your smart contract
          */
-        const waveTxn = await wavePortalContract.addWave(message);
+        const waveTxn = await wavePortalContract.addWave('Hello World!');
         setMessage({ color: 'info', message: `Mining the Transaction...` });
         console.log('Mining...', waveTxn.hash);
 
@@ -166,6 +166,7 @@ const App = () => {
           auth={currentAccount}
           component={Landing}
           connectWallet={connectWallet}
+          wave={wave}
           currentAccount={currentAccount}
           path='/'
           exact
@@ -173,8 +174,6 @@ const App = () => {
         <PrivateRoute
           auth={currentAccount}
           component={Dashboard}
-          onSubmit={wave}
-          listOfMessages={allWaves}
           path='/dashboard'
           exact
         />

@@ -66,11 +66,11 @@ const dummy = [
   },
 ];
 
-const Post = ({ listOfMessages }) => {
+const Post = props => {
   return (
     <div className='container'>
       <div className='row'>
-        {listOfMessages.map((wave, index) => {
+        {dummy.map((wave, index) => {
           return (
             <div
               key={index}

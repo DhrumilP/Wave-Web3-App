@@ -1,51 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
-const Form = ({ onSubmit }) => {
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = e => {
-    alert('A name was submitted: ' + message);
-    onSubmit(message);
-    setMessage('');
-    e.preventDefault();
-  };
-
-  const handleChange = e => {
-    setMessage(e.target.value);
-  };
-
+const Form = props => {
   return (
     <div className='container mt-5'>
-      <div className='jumbotron bg-light text-dark '>
-        <h1 className='display-4'>Hello, there!</h1>
-        <p className='lead'>
+      <div class='jumbotron bg-light text-dark '>
+        <h1 class='display-4'>Hello, there!</h1>
+        <p class='lead'>
           Dhrumil here! 👨‍💻 Shoot me a message and earn a chance to earn Etherum!
           🤑
         </p>
-        <hr className='my-4' />
-        <form
-          onSubmit={handleSubmit}
-          className='d-flex mx-5 pb-4 justify-content-center'
-        >
+        <hr class='my-4' />
+        <form className='d-flex mx-5 pb-4 justify-content-center'>
           <div className='form-group w-50'>
             <input
-              type='text'
+              type='email'
               className='form-control'
-              onChange={handleChange}
-              value={message}
-              id='textInput'
-              aria-describedby='messageHelp'
+              id='exampleInputEmail1'
+              aria-describedby='emailHelp'
               placeholder='Enter your message!'
             />
-            <small className='form-text text-muted'>
+            <small id='emailHelp' className='form-text text-muted'>
               A fun message to be on the Rinkeby network. You can use emoji! 😉
             </small>
           </div>
           <div className='mx-3'>
             <button type='submit' className='btn btn-primary'>
-              👋 Wave!
+              Submit
             </button>
           </div>
         </form>
