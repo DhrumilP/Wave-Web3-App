@@ -4,14 +4,11 @@ import Post from './Post';
 import Form from './Form';
 import Footer from './Footer';
 
-const WEBSITE_NAME = 'Dhrumil Pandya';
-const WEBSITE_LINK = 'https://dhrumilpandya.com/';
-
-const Dashboard = props => {
+const Dashboard = ({ onSubmit, listOfMessages }) => {
   return (
     <div className='position-relative'>
-      <Form />
-      <Post />
+      <Form onSubmit={onSubmit} />
+      <Post listOfMessages={listOfMessages} />
       <Footer color='black' />
     </div>
   );
