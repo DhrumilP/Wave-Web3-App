@@ -15,7 +15,7 @@ const App = () => {
   const [allWaves, setAllWaves] = useState([]);
   const [currentAccount, setCurrentAccount] = useState('');
   const [message, setMessage] = useState('');
-  const contractAddress = '0x0e40348aE397B1cA609542c05d5799251b78a050';
+  const contractAddress = '0xD905043Bc02a8E37b0DfF2EfA9F4Edb11B8062ca';
   const contractABI = abi.abi;
   const checkIfWalletIsConnected = async () => {
     try {
@@ -119,21 +119,31 @@ const App = () => {
         /*
          * Execute the actual wave from your smart contract
          */
-        const waveTxn = await wavePortalContract.addWave(message);
-        setMessage({ color: 'info', message: `Mining the Transaction...` });
-        console.log('Mining...', waveTxn.hash);
+        try {
+          const waveTxn = await wavePortalContract.addWave(message);
+          setMessage({ color: 'info', message: `Mining the Transaction...` });
+          console.log('Mining...', waveTxn.hash);
 
-        await waveTxn.wait();
+          await waveTxn.wait();
 
-        console.log('Mined -- ', waveTxn.hash);
+          console.log('Mined -- ', waveTxn.hash);
 
-        count = await wavePortalContract.getTotalWaves();
-        console.log('Retrieved total wave count...', count.toNumber());
-        getAllWaves();
-        setMessage({
-          color: 'success',
-          message: `Transaction mined... ${count.toNumber()} Waves`,
-        });
+          count = await wavePortalContract.getTotalWaves();
+          console.log('Retrieved total wave count...', count.toNumber());
+          getAllWaves();
+          setMessage({
+            color: 'success',
+            message: `Transaction mined... ${count.toNumber()} Waves`,
+          });
+        } catch (err) {
+          console.log(err.code);
+          if (err.code == 'UNPREDICTABLE_GAS_LIMIT') {
+            setMessage({
+              color: 'error',
+              message: `Wait for 15 mins before sending another wave`,
+            });
+          }
+        }
       } else {
         console.log("Ethereum object doesn't exist!");
       }
