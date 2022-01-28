@@ -4,8 +4,11 @@ import './App.css';
 import Alert from './components/AlertRender';
 import Landing from './components/Landing';
 import Post from './components/Post';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import abi from './utils/WavePortal.json';
+import PublicRoute from './utils/PublicRoute';
+import PrivateRoute from './utils/PrivateRoute';
 
 const App = () => {
   const [allWaves, setAllWaves] = useState([]);
@@ -149,19 +152,31 @@ const App = () => {
 
   return (
     <div className='vh-100 container-fluid g-0 text-center'>
-      {/* {message && (
+      {message && (
         <Alert
           color={message.color}
-          message={message.message}
+          message={message.message + currentAccount}
           onClose={onCloseAlert}
         />
       )}
-      <Landing
-        account={currentAccount}
-        connectWallet={connectWallet}
-        wave={wave}
-      /> */}
-      <Post />
+      <Switch>
+        <PublicRoute
+          props={{}}
+          auth={currentAccount}
+          component={Landing}
+          connectWallet={connectWallet}
+          wave={wave}
+          currentAccount={currentAccount}
+          path='/'
+          exact
+        />
+        <PrivateRoute
+          auth={currentAccount}
+          component={Post}
+          path='/posts'
+          exact
+        />
+      </Switch>
     </div>
   );
 };

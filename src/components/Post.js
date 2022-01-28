@@ -43,7 +43,7 @@ const Post = props => {
           return (
             <div
               key={index}
-              className='col-md-6 my-4 d-flex justify-content-center'
+              className='col-md-4 my-4 d-flex justify-content-center'
             >
               <Card
                 message={wave.message}

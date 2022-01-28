@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const WEBSITE_NAME = 'Dhrumil Pandya';
 const WEBSITE_LINK = 'https://dhrumilpandya.com/';
 
-const Landing = ({ account, connectWallet, wave }) => {
+const Landing = ({ currentAccount, connectWallet, wave }) => {
   const renderNotConnectedContainer = () => (
     <button
       className='cta-button connect-wallet-button'
@@ -30,8 +30,8 @@ const Landing = ({ account, connectWallet, wave }) => {
         <p className='sub-text mb-5 mt-2'>
           I am Dhrumil, wave at me and get a chance to earn Etherum 🐼
         </p>
-        {!account && renderNotConnectedContainer()}
-        {account && waveAtMe()}
+        {!currentAccount && renderNotConnectedContainer()}
+        {currentAccount && waveAtMe()}
       </div>
 
       <div className='footer-container'>
@@ -50,7 +50,7 @@ const Landing = ({ account, connectWallet, wave }) => {
 };
 
 Landing.propTypes = {
-  account: PropTypes.string.isRequired,
+  currentAccount: PropTypes.string.isRequired,
   connectWallet: PropTypes.func.isRequired,
   wave: PropTypes.func.isRequired,
 };
