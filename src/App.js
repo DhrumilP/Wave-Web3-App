@@ -31,10 +31,10 @@ const App = () => {
 
       if (accounts.length !== 0) {
         const account = accounts[0].toString().substring(0, 6);
-        // setMessage({
-        //   color: 'info',
-        //   message: `Found an authorized account: ${account}.....`,
-        // // });
+        setMessage({
+          color: 'info',
+          message: `Found an authorized account: ${account}.....`,
+        });
         setCurrentAccount(account);
         getAllWaves();
       } else {
@@ -132,7 +132,7 @@ const App = () => {
         getAllWaves();
         setMessage({
           color: 'success',
-          message: `Transaction mined... ${count.toNumber()} waves on chain`,
+          message: `Transaction mined... ${count.toNumber()} Waves`,
         });
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -155,8 +155,9 @@ const App = () => {
     <div className='vh-100 position-relative container-fluid g-0 text-center'>
       {message && (
         <Alert
+          property={currentAccount ? 'top-0 start-50 translate-middle' : 'm-5'}
           color={message.color}
-          message={message.message + currentAccount}
+          message={message.message}
           onClose={onCloseAlert}
         />
       )}

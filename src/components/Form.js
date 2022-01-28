@@ -17,7 +17,7 @@ const Form = ({ onSubmit }) => {
   };
 
   return (
-    <div className='container mt-5'>
+    <div className='container pt-5 mt-5'>
       <div className='jumbotron bg-light text-dark '>
         <h1 className='display-4'>Hello, there!</h1>
         <p className='lead'>

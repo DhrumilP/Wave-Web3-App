@@ -6,11 +6,11 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 
-const AlertRender = ({ color, message, onClose }) => {
+const AlertRender = ({ color, message, onClose, property }) => {
   return (
     <Alert
       onClose={() => onClose()}
-      className='w-20 position-absolute m-5'
+      className={'w-20 position-absolute ' + property}
       severity={color}
     >
       {message}
