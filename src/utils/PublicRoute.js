@@ -10,7 +10,11 @@ const PublicRoute = ({ component: Component, auth, ...rest }) => {
       <Route
         {...rest}
         render={props =>
-          auth ? <Redirect to='/posts' /> : <Component {...rest} {...props} />
+          auth ? (
+            <Redirect to='/dashboard' />
+          ) : (
+            <Component {...rest} {...props} />
+          )
         }
       />
     )

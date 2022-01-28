@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// Constants
-const WEBSITE_NAME = 'Dhrumil Pandya';
-const WEBSITE_LINK = 'https://dhrumilpandya.com/';
+import Footer from './Footer';
 
 const Landing = ({ currentAccount, connectWallet, wave }) => {
   const renderNotConnectedContainer = () => (
@@ -34,17 +31,7 @@ const Landing = ({ currentAccount, connectWallet, wave }) => {
         {currentAccount && waveAtMe()}
       </div>
 
-      <div className='footer-container'>
-        <a
-          className='footer-text'
-          href={WEBSITE_LINK}
-          target='_blank'
-          rel='noreferrer'
-        >
-          {`built by @${WEBSITE_NAME} with `}
-          <span className='emoji'></span>
-        </a>
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -21,7 +21,6 @@ const AlertRender = ({ color, message, onClose }) => {
 AlertRender.propTypes = {
   color: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default AlertRender;

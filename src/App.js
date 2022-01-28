@@ -9,6 +9,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import abi from './utils/WavePortal.json';
 import PublicRoute from './utils/PublicRoute';
 import PrivateRoute from './utils/PrivateRoute';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   const [allWaves, setAllWaves] = useState([]);
@@ -30,10 +31,10 @@ const App = () => {
 
       if (accounts.length !== 0) {
         const account = accounts[0].toString().substring(0, 6);
-        setMessage({
-          color: 'info',
-          message: `Found an authorized account: ${account}.....`,
-        });
+        // setMessage({
+        //   color: 'info',
+        //   message: `Found an authorized account: ${account}.....`,
+        // // });
         setCurrentAccount(account);
         getAllWaves();
       } else {
@@ -151,7 +152,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className='vh-100 container-fluid g-0 text-center'>
+    <div className='vh-100 position-relative container-fluid g-0 text-center'>
       {message && (
         <Alert
           color={message.color}
@@ -172,8 +173,8 @@ const App = () => {
         />
         <PrivateRoute
           auth={currentAccount}
-          component={Post}
-          path='/posts'
+          component={Dashboard}
+          path='/dashboard'
           exact
         />
       </Switch>
