@@ -1,26 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from './Footer';
+import Navbar from './Navbar';
 
-const Landing = ({ currentAccount, connectWallet }) => {
+const Landing = ({ currentAccount, connectWallet, mode, setMode }) => {
   const renderNotConnectedContainer = () => (
     <button
-      className='cta-button connect-wallet-button'
+      className='btn btn-primary btn-lg btn-gradient'
       onClick={connectWallet}
+      type='button'
     >
-      Connect to Wallet
+      <strong>Connect Wallet</strong>
     </button>
   );
 
   return (
-    <div className='landing vh-100 text-white d-flex justify-content-center align-items-center'>
-      <div>
-        <span role='img' aria-label='rocket' className='header'>
-          🚀 Hey there!
-        </span>
-        <p className='sub-text mb-5 mt-2'>
-          I am Dhrumil, wave at me and get a chance to earn Etherum 🐼
-        </p>
+    <div className='landing vh-100 text-white d-flex justify-content-center text-center align-items-center'>
+      <Navbar setMode={setMode} mode={mode} />
+      <div className='hero'>
+        <h1 className='h1 m-0'>
+          <strong>🚀 Hey there!</strong>
+        </h1>
+        <h5 className='my-4'>
+          <strong>
+            One spot. To earn Etherum by waving me. Plus discover your own NFTs!
+          </strong>
+        </h5>
         {!currentAccount && renderNotConnectedContainer()}
       </div>
 

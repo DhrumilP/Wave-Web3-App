@@ -1,16 +1,7 @@
 .landing {
-  background: rgb(238, 174, 202);
-  background: radial-gradient(
-    circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 100%
-  );
-}
-
-.header {
-  margin: 0;
-  font-size: 50px;
-  font-weight: bold;
+  font-family: sans-serif;
+  background: var(--landing-back);
+  transition: background 0.2s;
 }
 
 .post {
@@ -33,44 +24,24 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c3e9ff",endColorstr="#e9b794",GradientType=1);
 }
 
-.sub-text {
-  font-size: 25px;
+.cta-button {
+  font-size: 1.2rem;
+  font-weight: bold;
   color: white;
 }
 
-.cta-button {
-  height: 45px;
-  border: 0;
-  width: auto;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
+.hero > h1 {
+  font-size: 4.5rem;
+}
+
+.hero > h5 {
+  font-size: 2rem;
 }
 
 .connect-wallet-button {
   background: -webkit-linear-gradient(left, #60c657, #35aee2);
   background-size: 200% 200%;
-  /* margin-right: 5em; */
-  width: 215px;
   animation: gradient-animation 4s ease infinite;
-}
-
-.wave-button {
-  background: -webkit-linear-gradient(left, #19287e, #35aee2);
-  background-size: 200% 200%;
-  width: 215px;
-  animation: gradient-animation 4s ease infinite;
-}
-
-.submit-gif-button {
-  background: -webkit-linear-gradient(left, #4e44ce, #35aee2);
-  background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
-  margin-left: 10px;
 }
 
 .emoji::after {
@@ -90,4 +61,28 @@
   width: 100%;
   height: 2.5rem;
   bottom: 0;
+}
+
+/* footer */
+.Circle-footer {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  /* background-color: #3a3d4e; */
+}
+
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 3rem;
+  font-size: 18px;
+}
+
+i {
+  color: #fff8dc;
+  font-size: 30px;
+  cursor: pointer;
 }

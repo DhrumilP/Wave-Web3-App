@@ -4,7 +4,7 @@ const emoji = require('random-happy-emoji');
 
 const Card = ({ address, time, message }) => {
   return (
-    <div className='card'>
+    <div className='card bg-transparent'>
       <div className='card-header h4'>{emoji()}</div>
       <div className='card-body'>
         <h6 className='card-title'>{time}</h6>
