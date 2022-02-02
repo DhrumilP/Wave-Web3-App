@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import Alert from './components/AlertRender';
 import Landing from './components/Landing';
 import useLocalStorage from 'use-local-storage';
@@ -10,6 +10,8 @@ import { Switch } from 'react-router-dom';
 import PublicRoute from './utils/PublicRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './components/message-contract/Dashboard';
+import Platform from './components/Platform';
+import ServicePage from './components/ServicePage';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
@@ -100,7 +102,7 @@ const App = () => {
     >
       {message && (
         <Alert
-          property={currentAccount ? 'top-0 start-50 translate-middle' : 'm-5'}
+          property={'mt-5 top-0 start-50 translate-middle'}
           color={message.color}
           message={message.message}
           onClose={onCloseAlert}
@@ -108,21 +110,37 @@ const App = () => {
       )}
       <Switch>
         <PublicRoute
-          props={{}}
           auth={currentAccount}
           component={Landing}
-          setMode={onSetModeClick}
-          mode={theme}
-          connectWallet={connectWallet}
-          currentAccount={currentAccount}
+          data={{
+            setMode: onSetModeClick,
+            mode: theme,
+            connectWallet: connectWallet,
+            currentAccount: currentAccount,
+          }}
           path='/'
           exact
         />
         <PrivateRoute
           auth={currentAccount}
           component={Dashboard}
-          setMessageToState={setMessageToState}
+          data={{ setMessageToState: setMessageToState }}
           path='/dashboard'
+          exact
+        />
+        <PrivateRoute
+          auth={currentAccount}
+          component={Platform}
+          data={{ setMode: onSetModeClick, mode: theme }}
+          path='/platform'
+          exact
+        />
+
+        <PrivateRoute
+          auth={currentAccount}
+          component={ServicePage}
+          data={{ setMode: onSetModeClick, mode: theme }}
+          path='/service'
           exact
         />
       </Switch>

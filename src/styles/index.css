@@ -15,11 +15,15 @@ code {
     rgba(148, 187, 233, 1) 100%
   );
   --dash-color: black;
+  --nft-color: -webkit-linear-gradient(#009ffd, #2a2a72);
+  --clr-neon: hsl(226, 70%, 38%);
 }
 [data-theme='dark'] {
   --landing-back: #1d1f2b;
   --dash-back: #1d1f2b;
   --dash-color: white;
+  --nft-color: -webkit-linear-gradient(#3eadcf, #abe9cd);
+  --clr-neon: hsl(219, 67%, 52%);
 }
 
 * {
