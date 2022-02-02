@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Navbar = ({ setMode, mode, currentAccount }) => {
+const Navbar = ({ setMode, mode, pageCalled }) => {
   return (
     <div className='topright col my-5'>
       <div className='d-flex justify-content-center align-items-center'>
-        {currentAccount && (
+        {pageCalled !== 'landing' && (
           <div className='mx-4'>
             <a
               href='https://ca.linkedin.com/in/pandya-dhrumil'
@@ -31,19 +32,17 @@ const Navbar = ({ setMode, mode, currentAccount }) => {
             <i className='fab fa-github'></i>
           </a>
         </div>
-        {/* <div className='mx-3'>
-          <button
-            type='button'
-            className='btn btn-lg btn-outline-light connect-wallet'
-          >
-            Connect Wallet
-          </button>
-        </div> */}
       </div>
     </div>
   );
 };
 
-Navbar.propTypes = {};
+Navbar.propTypes = {
+  pageCalled: PropTypes.string.isRequired,
+};
+
+Navbar.defaultProps = {
+  pageCalled: 'notLanding',
+};
 
 export default Navbar;

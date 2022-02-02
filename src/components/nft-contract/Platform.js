@@ -1,8 +1,8 @@
 import React from 'react';
-import Footer from './Footer';
-import Navbar from './Navbar';
-import blob from '../assets/blob3.gif';
-import blob2 from '../assets/blob2.gif';
+import Footer from '../Footer';
+import Navbar from '../Navbar';
+import blob from '../../assets/blob3.gif';
+import blob2 from '../../assets/blob2.gif';
 import { Link } from 'react-router-dom';
 const Platform = ({ mode, setMode }) => {
   return (

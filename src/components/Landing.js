@@ -34,7 +34,7 @@ const Landing = ({ currentAccount, connectWallet, mode, setMode }) => {
         <img className='w-100 image-blob-2' src={blob3} alt='' />
       </div>
       <div className='landing vh-100 text-white d-flex justify-content-center text-center align-items-center'>
-        <Navbar currentAccount={currentAccount} setMode={setMode} mode={mode} />
+        <Navbar pageCalled='landing' setMode={setMode} mode={mode} />
         <div className='hero landing-text'>
           <h1 className='h1 m-0'>
             <strong>Hey There!</strong>

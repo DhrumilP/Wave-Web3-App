@@ -10,7 +10,7 @@ import { Switch } from 'react-router-dom';
 import PublicRoute from './utils/PublicRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './components/message-contract/Dashboard';
-import Platform from './components/Platform';
+import Platform from './components/nft-contract/Platform';
 import ServicePage from './components/ServicePage';
 
 const App = () => {
