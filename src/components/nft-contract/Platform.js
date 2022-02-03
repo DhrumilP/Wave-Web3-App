@@ -4,7 +4,50 @@ import Navbar from '../Navbar';
 import blob from '../../assets/blob3.gif';
 import blob2 from '../../assets/blob2.gif';
 import { Link } from 'react-router-dom';
-const Platform = ({ mode, currentAccount, setMode }) => {
+import { ethers } from 'ethers';
+import MintNFT from '../../utils/MintNFT.json';
+
+const Platform = ({ mode, currentAccount, setMode, setMessageToState }) => {
+  const askContractToMintNft = async () => {
+    const CONTRACT_ADDRESS = '0x5890Ee542DcbB8734264A5A5D0946B1A419A3b5d';
+
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const connectedContract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          MintNFT.abi,
+          signer
+        );
+
+        console.log('Going to pop wallet now to pay gas...');
+        let nftTxn = await connectedContract.makeMintNFT();
+
+        setMessageToState({
+          color: 'info',
+          message: `Mining the Transaction...`,
+        });
+
+        console.log('Mining...please wait.');
+
+        await nftTxn.wait();
+        setMessageToState({
+          color: 'success',
+          message: `Whoa! Check your NFT by clicking ETH button on right`,
+        });
+        console.log(
+          `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
+        );
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className='blob-position-1 justify-content-left'>
@@ -32,11 +75,13 @@ const Platform = ({ mode, currentAccount, setMode }) => {
               Each unique. Each beautiful. Discover your NFT today.
             </strong>
           </h5>
-          <Link to='/dashboard'>
-            <button type='btn' className='btn btn-lg btn-primary'>
-              <strong className=''>Mint NFT</strong>
-            </button>
-          </Link>
+          <button
+            type='btn'
+            onClick={askContractToMintNft}
+            className='btn btn-lg btn-primary'
+          >
+            <strong className=''>Mint NFT</strong>
+          </button>
         </div>
 
         <Footer />

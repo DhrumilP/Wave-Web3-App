@@ -142,6 +142,7 @@ const App = () => {
           data={{
             currentAccount: fullCurrentAccount,
             setMode: onSetModeClick,
+            setMessageToState: setMessageToState,
             mode: theme,
           }}
           path='/platform'
