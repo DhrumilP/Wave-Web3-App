@@ -1,22 +1,28 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import Alert from './components/AlertRender';
 import Landing from './components/Landing';
-import Post from './components/Post';
-import { Switch, Route, Link } from 'react-router-dom';
+import useLocalStorage from 'use-local-storage';
 
-import abi from './utils/WavePortal.json';
+import { Switch } from 'react-router-dom';
+
 import PublicRoute from './utils/PublicRoute';
 import PrivateRoute from './utils/PrivateRoute';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/message-contract/Dashboard';
+import Platform from './components/nft-contract/Platform';
+import ServicePage from './components/ServicePage';
 
 const App = () => {
-  const [allWaves, setAllWaves] = useState([]);
   const [currentAccount, setCurrentAccount] = useState('');
+  const [fullCurrentAccount, setFullCurrentAccount] = useState('');
   const [message, setMessage] = useState('');
-  const contractAddress = '0xD905043Bc02a8E37b0DfF2EfA9F4Edb11B8062ca';
-  const contractABI = abi.abi;
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useLocalStorage(
+    'theme',
+    defaultDark ? 'dark' : 'light'
+  );
+
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
@@ -30,13 +36,13 @@ const App = () => {
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
+        setFullCurrentAccount(accounts[0]);
         const account = accounts[0].toString().substring(0, 6);
         setMessage({
           color: 'info',
           message: `Found an authorized account: ${account}.....`,
         });
         setCurrentAccount(account);
-        getAllWaves();
       } else {
         setMessage({ color: 'error', message: 'Please login to MetaMask' });
       }
@@ -49,35 +55,8 @@ const App = () => {
     setMessage('');
   };
 
-  const getAllWaves = async () => {
-    try {
-      const { ethereum } = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const wavePortalContract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
-        const waves = await wavePortalContract.getAllWaves();
-        let wavesCleaned = [];
-
-        waves.forEach(wave => {
-          wavesCleaned.push({
-            address: wave.waver,
-            timestamp: new Date(wave.timestamp * 1000),
-            message: wave.message,
-          });
-        });
-
-        setAllWaves(wavesCleaned);
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const setMessageToState = message => {
+    setMessage(message);
   };
 
   const connectWallet = async () => {
@@ -95,60 +74,18 @@ const App = () => {
 
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
-      getAllWaves();
+      setFullCurrentAccount(accounts[0]);
       setMessage('');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const wave = async message => {
-    try {
-      const { ethereum } = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const wavePortalContract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
-        let count = await wavePortalContract.getTotalWaves();
-        console.log('Retrieved total wave count...', count.toNumber());
-
-        /*
-         * Execute the actual wave from your smart contract
-         */
-        try {
-          const waveTxn = await wavePortalContract.addWave(message);
-          setMessage({ color: 'info', message: `Mining the Transaction...` });
-          console.log('Mining...', waveTxn.hash);
-
-          await waveTxn.wait();
-
-          console.log('Mined -- ', waveTxn.hash);
-
-          count = await wavePortalContract.getTotalWaves();
-          console.log('Retrieved total wave count...', count.toNumber());
-          getAllWaves();
-          setMessage({
-            color: 'success',
-            message: `Transaction mined... ${count.toNumber()} Waves`,
-          });
-        } catch (err) {
-          console.log(err.code);
-          if (err.code == 'UNPREDICTABLE_GAS_LIMIT') {
-            setMessage({
-              color: 'error',
-              message: `Wait for 15 mins before sending another wave`,
-            });
-          }
-        }
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
-    } catch (error) {
-      console.log(error);
+  const onSetModeClick = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
     }
   };
 
@@ -162,10 +99,13 @@ const App = () => {
   }, []);
 
   return (
-    <div className='vh-100 position-relative container-fluid g-0 text-center'>
+    <div
+      data-theme={theme}
+      className='vh-100 text-center position-relative container-fluid g-0'
+    >
       {message && (
         <Alert
-          property={currentAccount ? 'top-0 start-50 translate-middle' : 'm-5'}
+          property={'mt-5 top-0 start-50 translate-middle'}
           color={message.color}
           message={message.message}
           onClose={onCloseAlert}
@@ -173,20 +113,52 @@ const App = () => {
       )}
       <Switch>
         <PublicRoute
-          props={{}}
           auth={currentAccount}
           component={Landing}
-          connectWallet={connectWallet}
-          currentAccount={currentAccount}
+          data={{
+            setMode: onSetModeClick,
+            mode: theme,
+            connectWallet: connectWallet,
+            currentAccount: currentAccount,
+          }}
           path='/'
           exact
         />
         <PrivateRoute
           auth={currentAccount}
           component={Dashboard}
-          onSubmit={wave}
-          listOfMessages={allWaves}
+          data={{
+            setMessageToState: setMessageToState,
+            setMode: onSetModeClick,
+            mode: theme,
+            currentAccount: fullCurrentAccount,
+          }}
           path='/dashboard'
+          exact
+        />
+        <PrivateRoute
+          auth={currentAccount}
+          component={Platform}
+          data={{
+            currentAccount: fullCurrentAccount,
+            setMode: onSetModeClick,
+            setMessageToState: setMessageToState,
+            mode: theme,
+          }}
+          path='/platform'
+          exact
+        />
+
+        <PrivateRoute
+          auth={currentAccount}
+          component={ServicePage}
+          data={{
+            setMode: onSetModeClick,
+            mode: theme,
+            currentAccount: fullCurrentAccount,
+            checkIfWalletIsConnected: checkIfWalletIsConnected,
+          }}
+          path='/service'
           exact
         />
       </Switch>

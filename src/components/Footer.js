@@ -3,7 +3,7 @@ const WEBSITE_NAME = 'Dhrumil Pandya';
 const WEBSITE_LINK = 'https://dhrumilpandya.com/';
 const Footer = ({ color, property }) => {
   return (
-    <div className={property}>
+    <div className={'mb-4 ' + property}>
       <a
         className={`footer-text text-${color}`}
         href={WEBSITE_LINK}

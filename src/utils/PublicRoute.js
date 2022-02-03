@@ -1,23 +1,15 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PublicRoute = ({ component: Component, auth, ...rest }) => {
+const PublicRoute = ({ component: Component, auth, data, ...rest }) => {
+  console.log('PublicRoute auth: ', auth);
   return (
-    // restricted = false meaning public route
-    // restricted = true meaning restricted route
-    console.log({ ...rest }),
-    (
-      <Route
-        {...rest}
-        render={props =>
-          auth ? (
-            <Redirect to='/dashboard' />
-          ) : (
-            <Component {...rest} {...props} />
-          )
-        }
-      />
-    )
+    <Route
+      {...rest}
+      render={props =>
+        auth ? <Redirect to='/service' /> : <Component {...props} {...data} />
+      }
+    />
   );
 };
 
