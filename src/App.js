@@ -15,6 +15,7 @@ import ServicePage from './components/ServicePage';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
+  const [fullCurrentAccount, setFullCurrentAccount] = useState('');
   const [message, setMessage] = useState('');
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [theme, setTheme] = useLocalStorage(
@@ -35,6 +36,7 @@ const App = () => {
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
+        setFullCurrentAccount(accounts[0]);
         const account = accounts[0].toString().substring(0, 6);
         setMessage({
           color: 'info',
@@ -72,6 +74,7 @@ const App = () => {
 
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
+      setFullCurrentAccount(accounts[0]);
       setMessage('');
     } catch (error) {
       console.log(error);
@@ -124,14 +127,23 @@ const App = () => {
         <PrivateRoute
           auth={currentAccount}
           component={Dashboard}
-          data={{ setMessageToState: setMessageToState }}
+          data={{
+            setMessageToState: setMessageToState,
+            setMode: onSetModeClick,
+            mode: theme,
+            currentAccount: fullCurrentAccount,
+          }}
           path='/dashboard'
           exact
         />
         <PrivateRoute
           auth={currentAccount}
           component={Platform}
-          data={{ setMode: onSetModeClick, mode: theme }}
+          data={{
+            currentAccount: fullCurrentAccount,
+            setMode: onSetModeClick,
+            mode: theme,
+          }}
           path='/platform'
           exact
         />
@@ -139,7 +151,12 @@ const App = () => {
         <PrivateRoute
           auth={currentAccount}
           component={ServicePage}
-          data={{ setMode: onSetModeClick, mode: theme }}
+          data={{
+            setMode: onSetModeClick,
+            mode: theme,
+            currentAccount: fullCurrentAccount,
+            checkIfWalletIsConnected: checkIfWalletIsConnected,
+          }}
           path='/service'
           exact
         />

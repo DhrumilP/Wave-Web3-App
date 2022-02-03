@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 import blob from '../../assets/blob3.gif';
 import blob2 from '../../assets/blob2.gif';
 import { Link } from 'react-router-dom';
-const Platform = ({ mode, setMode }) => {
+const Platform = ({ mode, currentAccount, setMode }) => {
   return (
     <>
       <div className='blob-position-1 justify-content-left'>
@@ -14,7 +14,12 @@ const Platform = ({ mode, setMode }) => {
         <img className='w-100 image-blob-2' src={blob2} alt='' />
       </div>
       <div className='landing vh-100 text-white d-flex  justify-content-center align-items-center'>
-        <Navbar callingFrom='Platform' setMode={setMode} mode={mode} />
+        <Navbar
+          linkToETH={'https://testnets.opensea.io/' + currentAccount}
+          callingFrom='Platform'
+          setMode={setMode}
+          mode={mode}
+        />
         <div className='hero platform'>
           <h1 className='h1 m-0'>
             <strong>

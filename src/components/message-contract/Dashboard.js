@@ -4,11 +4,11 @@ import Post from './Post';
 import Form from './Form';
 import Footer from '../Footer';
 import abi from '../../utils/WavePortal.json';
-
+import Navbar from '../Navbar';
 const contractAddress = '0xD905043Bc02a8E37b0DfF2EfA9F4Edb11B8062ca';
 const contractABI = abi.abi;
 
-const Dashboard = ({ setMessageToState }) => {
+const Dashboard = ({ setMessageToState, currentAccount, mode, setMode }) => {
   const [allWaves, setAllWaves] = useState([]);
   const getAllWaves = async () => {
     try {
@@ -83,7 +83,7 @@ const Dashboard = ({ setMessageToState }) => {
           });
         } catch (err) {
           console.log(err.code);
-          if (err.code == 'UNPREDICTABLE_GAS_LIMIT') {
+          if (err.code === 'UNPREDICTABLE_GAS_LIMIT') {
             setMessageToState({
               color: 'error',
               message: `Wait for 15 mins before sending another wave`,
@@ -98,11 +98,21 @@ const Dashboard = ({ setMessageToState }) => {
     }
   };
   return (
-    <div className='dashboard position-relative'>
-      <Form onSubmit={wave} />
-      <Post listOfMessages={allWaves} />
-      <Footer color='black' />
+    <div className='landing dashboard d-flex flex-column justify-content-center '>
+      <Navbar
+        callingFrom='Dashboard'
+        linkToETH={'https://rinkeby.etherscan.io/address/' + currentAccount}
+        setMode={setMode}
+        mode={mode}
+      />
+      <Form onSubmit={wave} mode={mode} />
+      <Post listOfMessages={allWaves} mode={mode} />
+      <Footer property='' color=' footer-dashboard' />
     </div>
+
+    // <div className='dashboard'>
+    //
+    // </div>
   );
 };
 

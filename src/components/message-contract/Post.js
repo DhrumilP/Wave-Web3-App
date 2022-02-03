@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const Post = ({ listOfMessages }) => {
+const Post = ({ listOfMessages, mode }) => {
   return (
     <div className='container'>
       <div className='row'>
@@ -14,6 +14,7 @@ const Post = ({ listOfMessages }) => {
               <Card
                 message={wave.message}
                 address={wave.address}
+                mode={mode}
                 time={wave.timestamp.toString()}
               />
             </div>

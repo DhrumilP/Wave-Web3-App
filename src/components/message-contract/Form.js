@@ -17,7 +17,7 @@ const Form = ({ onSubmit }) => {
 
   return (
     <div className='container pt-5 mt-5'>
-      <div className='jumbotron bg-light text-dark '>
+      <div className='jumbotron bg-transparent'>
         <h1 className='display-4'>Hello, there!</h1>
         <p className='lead'>
           Dhrumil here! 👨‍💻 Shoot me a message and earn a chance to earn Etherum!
@@ -37,8 +37,9 @@ const Form = ({ onSubmit }) => {
               id='textInput'
               aria-describedby='messageHelp'
               placeholder='Enter your message!'
+              required
             />
-            <small className='form-text text-muted'>
+            <small className='form-text'>
               A fun message to be on the Rinkeby network. You can use emoji! 😉
             </small>
           </div>

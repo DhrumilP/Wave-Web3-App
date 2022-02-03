@@ -197,3 +197,12 @@ i {
 .connect-wallet:focus::after {
   opacity: 1;
 }
+
+.footer-dashboard {
+  color: var(--footer-dash);
+}
+
+.dashboard {
+  color: var(--dashboard-text);
+  background: var(--dashboard-back);
+}
