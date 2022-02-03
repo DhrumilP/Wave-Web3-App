@@ -13,8 +13,8 @@ const Landing = ({ currentAccount, connectWallet, mode, setMode }) => {
       type='button'
       className={
         mode === 'light'
-          ? 'btn btn-lg  btn-primary'
-          : 'btn btn-lg  btn-outline-light connect-wallet'
+          ? 'btn btn-lg btn-primary'
+          : 'connect-wallet btn btn-lg btn-outline-light'
       }
       onClick={connectWallet}
     >

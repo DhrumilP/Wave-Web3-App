@@ -1,17 +1,14 @@
-import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import './styles/App.css';
 import Alert from './components/AlertRender';
 import Landing from './components/Landing';
 import useLocalStorage from 'use-local-storage';
-
 import { Switch } from 'react-router-dom';
-
 import PublicRoute from './utils/PublicRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import Dashboard from './components/message-contract/Dashboard';
 import Platform from './components/nft-contract/Platform';
 import ServicePage from './components/ServicePage';
+import './styles/App.css';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');

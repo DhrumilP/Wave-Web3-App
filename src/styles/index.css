@@ -8,6 +8,11 @@ code {
     monospace;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --landing-back: radial-gradient(
     circle,
@@ -30,9 +35,4 @@ code {
   --footer-dash: white;
   --dashboard-text: white;
   --dashboard-back: #35383f;
-}
-
-* {
-  margin: 0;
-  padding: 0;
 }
